@@ -1,10 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { showUser } from "../feature/userDetailSlice";
+import CustomModal from "./CustomModal";
 
 const Read = () => {
   const dispatch = useDispatch();
+
   const { users, loading } = useSelector((state) => state.app);
+  const [id, setId] = useState();
+  const [showPopup, setShowPopup] = useState(false);
   useEffect(() => {
     dispatch(showUser());
   }, []);
@@ -15,6 +19,13 @@ const Read = () => {
 
   return (
     <div>
+      {showPopup && (
+        <CustomModal
+          id={id}
+          showPopup={showPopup}
+          setShowPopup={setShowPopup}
+        />
+      )}
       <h2 className="text-center mt-5">User Data</h2>
       {users && users.length > 0 ? (
         users.map((ele) => (
@@ -26,15 +37,17 @@ const Read = () => {
               </h6>
               <p className="card-text">Age: {ele.age}</p>
               <p className="card-text">Gender: {ele.gender}</p>
-              <a href="#" className="card-link">
+              <button
+                type="button"
+                className="btn btn-primary me-3"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+                onClick={() => [setId(ele.id), setShowPopup(true)]}
+              >
                 View
-              </a>
-              <a href="#" className="card-link">
-                Edit
-              </a>
-              <a href="#" className="card-link">
-                Delete
-              </a>
+              </button>
+              <button className="btn btn-warning me-3">Edit</button>
+              <button className="btn btn-danger">Delete</button>
             </div>
           </div>
         ))
