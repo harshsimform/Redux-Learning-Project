@@ -32,18 +32,18 @@ const initialUserDetailState = {
 export const userDetail = createSlice({
   name: "userDetail",
   initialState: initialUserDetailState,
-  extraReducers: {
-    [createUser.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(createUser.pending, (state) => {
       state.loading = true;
-    },
-    [createUser.fulfilled]: (state, action) => {
+    });
+    builder.addCase(createUser.fulfilled, (state, action) => {
       state.loading = false;
       state.users.push(action.payload);
-    },
-    [createUser.rejected]: (state, action) => {
+    });
+    builder.addCase(createUser.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload;
-    },
+      state.error = action.payload.message;
+    });
   },
 });
 
