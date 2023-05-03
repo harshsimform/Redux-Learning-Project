@@ -1,19 +1,19 @@
-import { useState } from "react";
-
 import "./App.css";
+import Create from "./components/Create";
+import Navbar from "./components/Navbar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+const App = () => {
   return (
     <>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route exact path="/" element={<Create />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;
