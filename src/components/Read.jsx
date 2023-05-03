@@ -47,7 +47,9 @@ const Read = () => {
               >
                 View
               </button>
-              <Link className="btn btn-warning me-3">Edit</Link>
+              <Link to={`/edit/${ele.id}`} className="btn btn-warning me-3">
+                Edit
+              </Link>
               <Link
                 className="btn btn-danger"
                 onClick={() => dispatch(deleteUser(ele.id))}
