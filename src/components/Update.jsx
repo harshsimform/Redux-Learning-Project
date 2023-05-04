@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { updateUser } from "../feature/userDetailSlice";
+import { useNavigate } from "react-router-dom";
 
 const Update = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const [updateData, setUpdateData] = useState();
   const { users, loading } = useSelector((state) => state.app);
@@ -23,10 +25,11 @@ const Update = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUser(updateData));
+    navigate("/read");
   };
   return (
     <>
-      <h2>Edit the Data</h2>
+      <h2 className="text-center mt-5">Edit Data</h2>
       <form className="container mt-5" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputName" className="form-label">

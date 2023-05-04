@@ -9,17 +9,15 @@ const CustomModal = ({ id }) => {
   return (
     <div
       className="modal fade"
-      id="staticBackdrop"
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
+      id="exampleModal"
       tabIndex="-1"
-      aria-labelledby="staticBackdropLabel"
+      aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="staticBackdropLabel">
+            <h5 className="modal-title" id="exampleModalLabel">
               User Details
             </h5>
             <button

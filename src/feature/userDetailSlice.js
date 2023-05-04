@@ -62,7 +62,7 @@ export const deleteUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
   "updateUser",
   async (data, { rejectWithValue }) => {
-    console.log(data);
+    // console.log(data);
     const response = await fetch(
       `https://6451fb89a2860c9ed4fee398.mockapi.io/crud/${data.id}`,
       {
@@ -86,11 +86,17 @@ const initialUserDetailState = {
   users: [],
   loading: false,
   error: null,
+  searchItem: [],
 };
 
 export const userDetail = createSlice({
   name: "userDetail",
   initialState: initialUserDetailState,
+  reducers: {
+    searchUser: (state, action) => {
+      state.searchItem = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(createUser.pending, (state) => {
       state.loading = true;
@@ -133,7 +139,9 @@ export const userDetail = createSlice({
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
       state.loading = false;
-      state.users.push(action.payload);
+      state.users = state.users.map((ele) =>
+        ele.id === action.payload.id ? action.payload : ele
+      );
     });
     builder.addCase(updateUser.rejected, (state, action) => {
       state.loading = false;
@@ -143,3 +151,4 @@ export const userDetail = createSlice({
 });
 
 export default userDetail.reducer;
+export const { searchUser } = userDetail.actions;

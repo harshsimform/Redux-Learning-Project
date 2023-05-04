@@ -1,15 +1,23 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { searchUser } from "../feature/userDetailSlice";
 
 const Navbar = () => {
   const userCount = useSelector((state) => state.app.users);
+  const [searchData, setSearchData] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(searchUser(searchData));
+  });
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <Link to="/" className="navbar-brand">
             Home
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -40,6 +48,7 @@ const Navbar = () => {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                onChange={(e) => dispatch(setSearchData(e.target.value))}
               />
               <button className="btn btn-outline-success" type="submit">
                 Search
